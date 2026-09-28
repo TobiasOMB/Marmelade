@@ -1,0 +1,180 @@
+/* ============================================================
+   FARB- UND GRUNDEINSTELLUNGEN
+   Leitidee: Die Seite selbst ist hell (Beige/Weiß), Schrift ist
+   neutral dunkelgrau bis schwarz. Braun ist bewusst NUR für
+   Kopf- und Fußzeile reserviert (siehe HEADER / FOOTER weiter
+   unten) – so bleibt der Gesamteindruck hell, mit Braun als
+   Rahmen oben und unten.
+   ============================================================ */
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  /* Helles Beige/Weiß für alle Flächen im Seiteninhalt */
+  --bg:#FBF8F2; --bg2:#F3EADA; --surface:#FFFFFF;
+  /* Braun ausschließlich für Header/Footer-Flächen und deren Text */
+  --brown:#9C7A54; --brown-d:#6E4F35; --brown-text:#FBF3E7; --brown-text-muted:#E4D3BC;
+  /* Neutrales Dunkelgrau/Schwarz für allen Fließtext im Seiteninhalt */
+  --ink:#2C2A27; --muted:#68625A; --line:rgba(44,42,39,.15);
+  --serif:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+  --sans:'Jost','Helvetica Neue',Arial,sans-serif;
+}
+/* Dunkelmodus: gleiche Rollenverteilung (Braun nur Header/Footer),
+   nur mit invertierter Helligkeit für Systeme mit Dark Mode */
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#1E1915; --bg2:#2A231D; --surface:#352C25;
+    --brown:#7A5B3C; --brown-d:#5B4028; --brown-text:#F3E8D8; --brown-text-muted:#D8C6AC;
+    --ink:#F2ECE4; --muted:#C0B5A8; --line:rgba(242,236,228,.2);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1E1915; --bg2:#2A231D; --surface:#352C25;
+  --brown:#7A5B3C; --brown-d:#5B4028; --brown-text:#F3E8D8; --brown-text-muted:#D8C6AC;
+  --ink:#F2ECE4; --muted:#C0B5A8; --line:rgba(242,236,228,.2);
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:300;font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--serif);font-weight:500;line-height:1.08;margin:0;letter-spacing:-.005em}
+h1{font-size:clamp(2.8rem,6.4vw,5.2rem)}
+h2{font-size:clamp(2rem,4vw,3.1rem)}
+h3{font-size:1.5rem}
+p{margin:0}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+/* Gemeinsamer Seitenabstand: sorgt dafür, dass links und rechts
+   überall exakt derselbe Rand entsteht (Header, Hero, Schritte,
+   Designer, Druckbereich, Footer nutzen alle .wrap). Der Rand
+   wächst mit der Bildschirmbreite mit (20px auf dem Handy bis
+   40px auf großen Bildschirmen) und bleibt dabei links/rechts
+   immer gleich groß. */
+.wrap{max-width:1180px;margin:0 auto;padding:0 clamp(20px,4vw,40px)}
+
+/* ============================================================
+   HEADER – Kopfzeile mit Logo/Markenname und Navigation.
+   Einziger Bereich neben dem Footer, der in Braun gehalten ist.
+   ============================================================ */
+/* Header ist ein volles Braunband über die gesamte Fensterbreite.
+   Der Inhalt liegt in einem inneren .wrap, damit der Abstand
+   links/rechts exakt dem der übrigen Sektionen entspricht. */
+header.top{background:var(--brown);color:var(--brown-text)}
+header.top .wrap{display:flex;justify-content:space-between;align-items:center;padding-top:22px;padding-bottom:22px}
+.brand{font-family:var(--serif);font-size:1.6rem;font-weight:500;text-decoration:none;letter-spacing:.01em;color:var(--brown-text)}
+header.top nav{display:flex;gap:28px;font-size:.95rem;color:var(--brown-text-muted)}
+header.top nav a{text-decoration:none;border-bottom:1px solid transparent;padding-bottom:2px;color:inherit}
+header.top nav a:hover{border-color:var(--brown-text);color:var(--brown-text)}
+@media(max-width:640px){header.top nav a.hide-s{display:none}}
+
+/* ============================================================
+   BUTTONS – bleiben bewusst Beige/Weiß mit dunkelgrauer Schrift,
+   damit Braun ausschließlich Header und Footer vorbehalten ist.
+   ============================================================ */
+.btn{display:inline-block;background:var(--surface);color:var(--ink);border:1px solid var(--ink);padding:15px 34px;font:400 .95rem/1 var(--sans);letter-spacing:.06em;text-decoration:none;cursor:pointer;transition:background .2s,color .2s,border-color .2s}
+.btn:hover{background:var(--bg2);color:var(--ink);border-color:var(--ink)}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn.ghost:hover{background:var(--bg2);color:var(--ink);border-color:var(--ink)}
+
+/* ============================================================
+   HERO – Einstiegsbereich mit Überschrift, kurzem Anreißtext,
+   den zwei Haupt-Buttons und dem Marmeladenglas als Blickfang.
+   Hintergrund bleibt Beige/Weiß (Seiteninhalt, kein Braun hier).
+   ============================================================ */
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(24px,5vw,80px);align-items:center;padding:clamp(24px,5vw,64px) 0 clamp(64px,9vw,120px)}
+.hero p.lead{font-size:1.2rem;max-width:34ch;margin:28px 0 38px;color:var(--muted)}
+.hero .cta{display:flex;gap:16px;flex-wrap:wrap}
+.arch{background:var(--bg2);border-radius:999px 999px 0 0;aspect-ratio:4/5;display:flex;align-items:flex-end;justify-content:center;padding:14% 10% 0;overflow:hidden;position:relative}
+.arch svg.jar{width:88%;height:auto;display:block;margin-bottom:-2px}
+@media(max-width:820px){.hero{grid-template-columns:1fr}.arch{max-width:420px;margin:0 auto;width:100%}}
+
+/* Schritte */
+/* ============================================================
+   SCHRITTE – "In drei Schritten zum fertigen Glas": erklärt
+   den Ablauf (Gestalten, Bogen füllen, Drucken) in drei Spalten,
+   die auf schmalen Bildschirmen untereinander stehen.
+   ============================================================ */
+section.steps{background:var(--surface);padding:clamp(64px,9vw,110px) 0}
+.steps h2{max-width:16ch;margin-bottom:56px}
+.steps ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(24px,4vw,56px);counter-reset:s}
+.steps li{border-top:1px solid var(--line);padding-top:22px;counter-increment:s}
+.steps li::before{content:counter(s);font-family:var(--serif);font-size:2.6rem;color:var(--ink);opacity:.55;display:block;line-height:1;margin-bottom:14px}
+.steps li h3{margin-bottom:10px}
+.steps li p{color:var(--muted);max-width:32ch}
+@media(max-width:760px){.steps ol{grid-template-columns:1fr}}
+
+/* Designer */
+/* ============================================================
+   STUDIO / DESIGNER – Herzstück der Seite: links die Bedien-
+   elemente (Name, Zutaten, Datum, Rahmen, Frucht, Form, Farben),
+   rechts die live aktualisierte Vorschau des Etiketts. Auf
+   schmalen Bildschirmen wandert die Vorschau nach oben.
+   ============================================================ */
+section.studio{padding:clamp(64px,9vw,110px) 0}
+.studio .intro{max-width:52ch;margin:18px 0 48px;color:var(--muted)}
+.studio-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);align-items:start}
+.panel{position:sticky;top:calc(20px + env(safe-area-inset-top,0px));background:var(--bg2);padding:clamp(20px,3vw,40px);display:flex;flex-direction:column;gap:18px;align-items:center}
+.panel .stage{width:100%;max-width:520px;filter:drop-shadow(0 10px 18px rgba(60,40,25,.22))}
+.panel small{color:var(--muted);text-align:center;font-size:.85rem}
+@media(max-width:900px){.studio-grid{grid-template-columns:1fr}.panel{position:static;order:-1}}
+.controls{display:flex;flex-direction:column;gap:34px}
+.field label.l,.field .l{display:block;font-size:.95rem;font-weight:400;margin-bottom:10px}
+.field .hint{color:var(--muted);font-size:.85rem;margin-top:6px}
+input[type=text],input[type=date],input[type=number],select{width:100%;font:300 1.05rem var(--sans);color:var(--ink);background:var(--surface);border:1px solid var(--line);padding:13px 14px;border-radius:0}
+input[type=text]:focus,input[type=date]:focus,input[type=number]:focus,select:focus{outline:2px solid var(--ink);outline-offset:0}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{appearance:none;background:var(--surface);color:var(--ink);border:1px solid var(--line);font:300 .85rem/1.2 var(--sans);padding:8px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;min-width:84px;transition:border-color .15s}
+.chip:hover{border-color:var(--ink)}
+.chip[aria-pressed="true"]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.chip .th{display:block;height:58px;width:76px;display:flex;align-items:center;justify-content:center}
+.chip .th svg{max-height:100%;max-width:100%;height:auto;width:auto}
+.chip.text{padding:11px 16px;min-width:0;flex-direction:row}
+.chip.upload{justify-content:center;min-width:110px;cursor:pointer}
+.chip.upload input{position:absolute;opacity:0;width:0;height:0}
+.chip.upload:focus-within{outline:2px solid var(--ink);outline-offset:3px}
+.swatch{width:auto;min-width:0;flex-direction:row;padding:8px 14px 8px 8px;gap:10px}
+.swatch i{width:22px;height:22px;border-radius:50%;display:block;border:1px solid rgba(0,0,0,.25)}
+
+/* Druck */
+/* ============================================================
+   DRUCKBEREICH – Anzahl der Etiketten, Schnittlinien-Option,
+   Druck-Button sowie eine verkleinerte Live-Vorschau des A4-Bogens.
+   Leicht abgesetzter Beige-Hintergrund, um den Bereich vom
+   Designer optisch zu trennen (weiterhin Beige/Weiß, kein Braun).
+   ============================================================ */
+section.print{background:var(--bg2);padding:clamp(64px,9vw,110px) 0}
+.print-grid{display:grid;grid-template-columns:1fr auto;gap:clamp(24px,5vw,80px);align-items:start}
+.print .box{display:flex;flex-direction:column;gap:26px;max-width:460px}
+.print .box p{color:var(--muted)}
+.qty{display:flex;align-items:center;gap:14px}
+.qty input{width:96px}
+.check{display:flex;gap:10px;align-items:center;font-size:.95rem}
+.check input{width:18px;height:18px;accent-color:var(--ink)}
+.sheet-wrap{zoom:.4;background:#fff;box-shadow:0 12px 40px rgba(60,40,25,.25);width:210mm;height:297mm;flex:none}
+.sheet{width:210mm;height:297mm;background:#fff}
+@media(max-width:900px){.print-grid{grid-template-columns:1fr}.sheet-wrap{zoom:.34;justify-self:center}}
+@media(max-width:520px){.sheet-wrap{zoom:.27}}
+.preview-col{display:flex;flex-direction:column;gap:12px;align-items:center}
+.preview-col small{color:var(--muted)}
+
+/* ============================================================
+   FOOTER – zweiter und letzter brauner Bereich der Seite.
+   Text zentriert, Rand links/rechts über das innere .wrap.
+   ============================================================ */
+footer{padding:56px 0 64px;text-align:center;background:var(--brown);color:var(--brown-text-muted);font-size:.9rem}
+footer .brand{display:block;color:var(--brown-text);margin-bottom:8px;font-family:var(--serif);font-size:1.3rem}
+
+/* ============================================================
+   DRUCKAUSGABE – #printRoot wird nur beim tatsächlichen Drucken
+   sichtbar und enthält ausschließlich den gefüllten A4-Bogen;
+   der Rest der Seite wird beim Drucken ausgeblendet.
+   ============================================================ */
+#printRoot{display:none}
+@page{size:A4;margin:0}
+@media print{
+  body>*:not(#printRoot){display:none!important}
+  #printRoot{display:block!important}
+  html,body{background:#fff!important}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
