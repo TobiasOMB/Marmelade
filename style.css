@@ -19,20 +19,9 @@
   --serif:'Cormorant Garamond',Georgia,'Times New Roman',serif;
   --sans:'Jost','Helvetica Neue',Arial,sans-serif;
 }
-/* Dunkelmodus: gleiche Rollenverteilung (Braun nur Header/Footer),
-   nur mit invertierter Helligkeit für Systeme mit Dark Mode */
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --bg:#1E1915; --bg2:#2A231D; --surface:#352C25;
-    --brown:#7A5B3C; --brown-d:#5B4028; --brown-text:#F3E8D8; --brown-text-muted:#D8C6AC;
-    --ink:#F2ECE4; --muted:#C0B5A8; --line:rgba(242,236,228,.2);
-  }
-}
-:root[data-theme="dark"]{
-  --bg:#1E1915; --bg2:#2A231D; --surface:#352C25;
-  --brown:#7A5B3C; --brown-d:#5B4028; --brown-text:#F3E8D8; --brown-text-muted:#D8C6AC;
-  --ink:#F2ECE4; --muted:#C0B5A8; --line:rgba(242,236,228,.2);
-}
+/* Bewusst KEIN automatischer Dunkelmodus: Die Marke lebt von
+   hellem Beige/Weiß, deshalb bleiben die Farben unabhängig von
+   den Systemeinstellungen des Besuchers immer gleich hell. */
 html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
 *,*::before,*::after{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:300;font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
@@ -71,16 +60,26 @@ header.top nav a:hover{border-color:var(--brown-text);color:var(--brown-text)}
    damit Braun ausschließlich Header und Footer vorbehalten ist.
    ============================================================ */
 .btn{display:inline-block;background:var(--surface);color:var(--ink);border:1px solid var(--ink);padding:15px 34px;font:400 .95rem/1 var(--sans);letter-spacing:.06em;text-decoration:none;cursor:pointer;transition:background .2s,color .2s,border-color .2s}
-.btn:hover{background:var(--bg2);color:var(--ink);border-color:var(--ink)}
-.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
-.btn.ghost:hover{background:var(--bg2);color:var(--ink);border-color:var(--ink)}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--ink)}
+/* Hover-Effekt nur auf Geräten mit echtem Mauszeiger (Desktop):
+   Der Button füllt sich mit seiner eigenen Randfarbe, der Text
+   wechselt dabei von dunkel auf hell. Auf Touch-Geräten (Handy/
+   Tablet) bleibt der Button unverändert, da es dort kein Hover
+   gibt und ein "hängender" Hover-Zustand dort stören würde. */
+@media (hover:hover) and (pointer:fine){
+  .btn:hover{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+  .btn.ghost:hover{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+}
 
 /* ============================================================
    HERO – Einstiegsbereich mit Überschrift, kurzem Anreißtext,
    den zwei Haupt-Buttons und dem Marmeladenglas als Blickfang.
    Hintergrund bleibt Beige/Weiß (Seiteninhalt, kein Braun hier).
    ============================================================ */
-.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(24px,5vw,80px);align-items:center;padding:clamp(24px,5vw,64px) 0 clamp(64px,9vw,120px)}
+/* Nur oben/unten eigenes Padding – links/rechts kommt bewusst
+   ausschließlich vom gemeinsamen .wrap, damit der Rand exakt
+   mit allen anderen Sektionen übereinstimmt (auch auf dem Handy). */
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(24px,5vw,80px);align-items:center;padding-top:clamp(24px,5vw,64px);padding-bottom:clamp(64px,9vw,120px)}
 .hero p.lead{font-size:1.2rem;max-width:34ch;margin:28px 0 38px;color:var(--muted)}
 .hero .cta{display:flex;gap:16px;flex-wrap:wrap}
 .arch{background:var(--bg2);border-radius:999px 999px 0 0;aspect-ratio:4/5;display:flex;align-items:flex-end;justify-content:center;padding:14% 10% 0;overflow:hidden;position:relative}
