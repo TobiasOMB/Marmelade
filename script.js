@@ -23,7 +23,7 @@ var PAPERS={
   kraft:{name:'Kraft',c:'#E6D5BA'}
 };
 var FRAMES=[['klassisch','Klassisch'],['perlen','Perlen'],['blaetter','Ranke'],['bogen','Bogen'],['stich','Stich'],['kollage','Kollage'],['none','Ohne']];
-var FRUITS=[['heidelbeere','Heidelbeeren'],['nektarine','Nektarine'],['pfirsich','Pfirsich'],['pflaume','Pflaume'],['erdbeere','Erdbeere'],['none','Ohne']];
+var FRUITS=[['heidelbeere','Heidelbeeren'],['nektarine','Nektarine'],['pfirsich','Pfirsich'],['pflaume','Pflaume'],['erdbeere','Erdbeere'],['gluehwein','Glühwein'],['none','Ohne']];
 
 function iso(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
 var st={name:'Erdbeer-Marmelade',sub:'Hausgemacht',zutaten:'Erdbeeren, Zucker, Zitronensaft',date:iso(new Date()),fmt:'long',shape:'rect',frame:'klassisch',fruit:'erdbeere',place:'top',ink:'espresso',paper:'creme',img:null,qty:null,cut:true};
@@ -91,6 +91,19 @@ function fruitSVG(id){
     s+='<ellipse cx="-16" cy="-4" rx="4.5" ry="10" fill="#fff" opacity=".28" transform="rotate(15 -16 -4)"/>';
     s+='<path d="M0-28C0-36 3-40 5-44" stroke="#6B4A34" stroke-width="2.5" fill="none" stroke-linecap="round"/>';
     s+='<path d="M4-36C14-48 30-44 34-38 26-30 12-30 4-36Z" fill="#6E7E4E"/>';
+  }else if(id==='gluehwein'){
+    /* Glühwein: Glas-Tasse mit Wein, Dampf, Zimtstange und Sternanis */
+    s+='<path d="M-24 4V30Q-24 42 -12 42H12Q24 42 24 30V4Z" fill="#F4E6D3" stroke="#B98B62" stroke-width="2"/>';
+    s+='<path d="M-22 12V30Q-22 40 -12 40H12Q22 40 22 30V12Z" fill="#7E2335"/>';
+    s+='<path d="M-22 12H22" stroke="#9B3A4C" stroke-width="2.4"/>';
+    s+='<path d="M24 10C42 10 42 32 24 32" fill="none" stroke="#B98B62" stroke-width="4" stroke-linecap="round"/>';
+    s+='<ellipse cx="-14" cy="26" rx="2.6" ry="7" fill="#fff" opacity=".25"/>';
+    s+='<g fill="none" stroke="#B9A28C" stroke-width="2.2" stroke-linecap="round" opacity=".85">';
+    s+='<path d="M-10-4C-16-12-4-16-10-24"/><path d="M2-4C-4-12 8-16 2-24"/><path d="M14-4C8-12 20-16 14-24"/></g>';
+    s+='<path d="M6 6L30-36" stroke="#9A5B34" stroke-width="6" stroke-linecap="round"/>';
+    s+='<path d="M9 2L28-30M4 4L26-34" stroke="#C48A5A" stroke-width="1.2" stroke-linecap="round"/>';
+    var pts=[];for(var j=0;j<16;j++){var r=j%2?4.2:11,a=j*Math.PI/8-Math.PI/2;pts.push((r*Math.cos(a)).toFixed(1)+' '+(r*Math.sin(a)).toFixed(1));}
+    s+='<g transform="translate(-30 -30)"><polygon points="'+pts.join(',')+'" fill="#6B3E26"/><circle r="2.6" fill="#C48A5A"/></g>';
   }
   return s;
 }
@@ -192,7 +205,7 @@ function labelInner(o,uid,opt){
     });
     var zut=(o.zutaten||'').trim();
     if(zut){
-      var zMaxW=W*(oval?.68:.8),zFs=Math.min(H*.032,zMaxW/(zut.length*.44));
+      var zMaxW=W*(oval?.68:.8),zFs=Math.min(H*.055,zMaxW/(zut.length*.44));
       s+='<text x="'+W/2+'" y="'+zutY+'" text-anchor="middle" font-family="\'Cormorant Garamond\',Georgia,serif" font-style="italic" font-weight="400" font-size="'+zFs.toFixed(2)+'" fill="'+ink+'" fill-opacity=".72">'+esc(zut)+'</text>';
     }
     s+='<line x1="'+(W/2-7)+'" x2="'+(W/2+7)+'" y1="'+divY+'" y2="'+divY+'" stroke="'+acc+'" stroke-width=".3"/><circle cx="'+W/2+'" cy="'+divY+'" r=".9" fill="'+paper+'" stroke="'+acc+'" stroke-width=".3"/>';
