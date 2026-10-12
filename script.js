@@ -180,7 +180,7 @@ function labelInner(o,uid,opt){
   if(!opt.frameOnly){
     var hasFruit=(o.fruit==='eigen'?!!o.img:o.fruit!=='none');
     var hasTop=hasFruit&&o.place==='top';
-    var subY=hasTop?H*.40:H*.31, nameY=hasTop?H*.545:H*.475, zutY=hasTop?H*.635:H*.575, divY=hasTop?H*.735:H*.685, dateY=hasTop?H*.84:H*.79;
+    var subY=hasTop?H*.40:H*.31, nameY=hasTop?H*.545:H*.475, zutY=hasTop?H*.665:H*.605, divY=hasTop?H*.76:H*.71, dateY=hasTop?H*.865:H*.815;
     if(hasTop){
       var cx=W/2,cy=H*.215,d=H*.21;
       if(o.fruit==='eigen'){
