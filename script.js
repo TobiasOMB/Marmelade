@@ -205,7 +205,7 @@ function labelInner(o,uid,opt){
     });
     var zut=(o.zutaten||'').trim();
     if(zut){
-      var zMaxW=W*(oval?.68:.8),zFs=Math.min(H*.055,zMaxW/(zut.length*.44));
+      var zMaxW=W*(oval?.68:.8),zFs=Math.min(H*.06,zMaxW/(zut.length*.44));
       s+='<text x="'+W/2+'" y="'+zutY+'" text-anchor="middle" font-family="\'Cormorant Garamond\',Georgia,serif" font-style="italic" font-weight="400" font-size="'+zFs.toFixed(2)+'" fill="'+ink+'" fill-opacity=".72">'+esc(zut)+'</text>';
     }
     s+='<line x1="'+(W/2-7)+'" x2="'+(W/2+7)+'" y1="'+divY+'" y2="'+divY+'" stroke="'+acc+'" stroke-width=".3"/><circle cx="'+W/2+'" cy="'+divY+'" r=".9" fill="'+paper+'" stroke="'+acc+'" stroke-width=".3"/>';
